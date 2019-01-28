@@ -11,16 +11,16 @@ class Trayecto(models.Model):
         return "Desde: " + self.origen + " Hacia: " + self.destino
 
 class Horario(models.Model):
-    trayecto = models.ForeignKey(Trayecto, on_delete=models.PROTECT, blank = True, null=True)
+    trayecto = models.ForeignKey(Trayecto, on_delete=models.PROTECT, blank = True, null=True) #Trayecto a seguir en este horario
     partida = models.DateTimeField('partida')
     llegada = models.DateTimeField('llegada')
     def __str__(self):
         return "Partida: " + str(self.partida) + " Llegada: " + str(self.llegada)
 
 class Bus(models.Model):
-    patente = models.CharField(max_length=10)
-    chofer = models.ForeignKey(Usuario, on_delete=models.PROTECT, blank = True, null=True)
-    horario = models.ForeignKey(Horario, on_delete=models.PROTECT, blank = True, null=True)
+    patente = models.CharField(max_length=10) #Patente o matricula del vehiculo
+    chofer = models.ForeignKey(Usuario, on_delete=models.PROTECT, blank = True, null=True) #Chofer a cargo
+    horario = models.ForeignKey(Horario, on_delete=models.PROTECT, blank = True, null=True) #Horario designado
     creado = models.DateTimeField('creado', default=timezone.now, blank=True)
     modificado = models.DateTimeField('modificado', default=timezone.now, blank=True)
     def save(self, *args, **kwargs):
@@ -31,8 +31,8 @@ class Bus(models.Model):
 
 
 class Asiento(models.Model):
-    bus = models.ForeignKey(Bus, on_delete=models.CASCADE)
-    pasajero = models.ForeignKey(Usuario, on_delete=models.PROTECT, blank = True, null=True)
+    bus = models.ForeignKey(Bus, on_delete=models.CASCADE) #Bus perteneciente
+    pasajero = models.ForeignKey(Usuario, on_delete=models.PROTECT, blank = True, null=True) #Usuario dueño del asiento
     numero = models.IntegerField(default=0)
     def __str__(self):
         return "Asiento " + str(self.numero) + " del bus: " + self.bus.patente

@@ -19,12 +19,6 @@ class BusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bus
         fields = ('id', 'patente', 'chofer', 'horario', 'modificado')
-    """def create(self, validated_data):
-        chofer = validated_data.pop('chofer')
-        horario = validated_data.pop('horario')
-        bus = Bus.objects.create(**validated_data)
-        Profile.objects.create(user=user, **profile_data)
-        return user"""
 
 class AsientoSerializer(serializers.ModelSerializer):
     class Meta:

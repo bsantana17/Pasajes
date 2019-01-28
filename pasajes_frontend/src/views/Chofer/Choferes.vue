@@ -1,6 +1,6 @@
 <template>
     <div class="choferes">
-        <h1>HOLA AQUI HAY CHOFERES</h1>
+        <h1>Choferes</h1>
         <div class="container">
             <button class="btn btn-primary" style="float: left;"><router-link to="/choferes/crear" tag="span">Nuevo Chofer</router-link></button>
             <table class="table table-bordered">

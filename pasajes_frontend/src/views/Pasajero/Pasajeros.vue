@@ -1,6 +1,6 @@
 <template>
     <div class="pasajeros">
-        <h1>HOLA AQUI HAY PASAJEROS</h1>
+        <h1>Pasajeros</h1>
         <div class="container">
             <button class="btn btn-primary" style="float: left;"><router-link to="/pasajeros/crear" tag="span">Nuevo Pasajero</router-link></button>
             <table class="table table-bordered">

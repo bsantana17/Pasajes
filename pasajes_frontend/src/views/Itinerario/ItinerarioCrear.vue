@@ -7,6 +7,7 @@
             <input class="form-control" id="ex1" type="datetime-local" v-model="itinerario.partida"><br>
             <label for="ex2">Horario de llegada:</label>
             <input class="form-control" id="ex2" type="datetime-local" v-model="itinerario.llegada"><br>
+            <label for="ex2">Trayecto:</label>
             <select class="form-control" v-model="selTrayecto" id="sel1" name="sellist1">
                 <option v-for="trayecto in trayectos" :value="trayecto">Desde: {{trayecto.origen}} Hacia: {{trayecto.destino}}</option>
             </select>

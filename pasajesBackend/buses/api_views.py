@@ -23,23 +23,25 @@ class AsientoViewSet(viewsets.ModelViewSet):
 class TrayectoViewSet(viewsets.ModelViewSet):
     queryset = Trayecto.objects.all()
     serializer_class = TrayectoSerializer
-    #Metodo para encontrar todos los horarios de un trayecto sin asignar a un bus
+    #Metodo para encontrar todos los horarios de un trayecto
     @action(methods=['get'], detail=True)
     def horarios(self, request, pk=None):
         trayecto = self.get_object()
         horarios = Horario.objects.filter(trayecto_id = trayecto.id)
         serializer = HorarioSerializer(horarios, many=True)
         return Response(serializer.data)
-    #Metodo para encontrar todos los horarios de un trayecto sin asignar a un bus
+    #Metodo para encontrar todos los horarios de un trayecto sin un bus asignado
     @action(methods=['get'], detail=True)
     def sinbus(self, request, pk=None):
         trayecto = self.get_object()
         horarios = Horario.objects.filter(trayecto_id = trayecto.id)
         buses = Bus.objects.all()
         objs = []
+        #Buscar horarios sin buses
         for horario in horarios:
             aux = 0
             for bus in buses:
+                #Si un horario ya se encuentra en un bus no incluirlo
                 if(bus.horario.id == horario.id):
                     aux = 1
             if(aux == 0):
@@ -47,7 +49,7 @@ class TrayectoViewSet(viewsets.ModelViewSet):
             
         serializer = HorarioSerializer(objs, many=True)
         return Response(serializer.data)
-    #Metodo para encontrar todos los asientos vendidos de un trayecto
+    #Metodo para encontrar todos los asientos vendidos de todos los trayectos
     #Retorna una lista en el orden de los trayectos, con un contador de pasaje comprado
     @action(methods=['get'], detail=False)
     def asientos(self, request):
@@ -68,8 +70,8 @@ class TrayectoViewSet(viewsets.ModelViewSet):
                         contador = contador + 1
             asientosAll.append(contador)
         return Response(asientosAll)
-    #Metodo para encontrar todos los buses con su cantidad vendida
-    #Retorna una lista en el orden de los trayectos, con un contador de pasaje vendido
+    #Metodo para encontrar todos los buses con su cantidad de asientos vendidos
+    #Retorna una lista en el orden de los trayectos, con un contador de pasaje vendido, más la patente del bus
     @action(methods=['get'], detail=False)
     def buses(self, request):
         trayectos = Trayecto.objects.all()
